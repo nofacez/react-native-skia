@@ -93,9 +93,10 @@ public:
     // Opacity
     if (_opacity->isChanged() || context->isChanged()) {
       if (_opacity->isSet()) {
-        context->getMutablePaint()->setAlphaf(
-            context->getMutablePaint()->getAlphaf() *
-            _opacity->value().getAsNumber());
+        context->setOpacity(context->getOpacity() *
+                            _opacity->value().getAsNumber());
+      } else {
+        context->clearOpacity();
       }
     }
 
@@ -103,9 +104,11 @@ public:
     if (_color->isSet() && (_color->isChanged() || context->isChanged())) {
       auto paint = context->getMutablePaint();
       paint->setShader(nullptr);
-      auto opacity = paint->getAlphaf();
       paint->setColor(*_color->getDerivedValue());
-      paint->setAlphaf(opacity * paint->getColor4f().fA);
+      paint->setAlphaf(context->getOpacity() * paint->getColor4f().fA);
+    } else if (context->isChanged()) {
+      auto paint = context->getMutablePaint();
+      paint->setAlphaf(context->getOpacity());
     }
 
     // Style

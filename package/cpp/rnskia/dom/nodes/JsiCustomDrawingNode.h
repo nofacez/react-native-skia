@@ -28,6 +28,7 @@ protected:
         float scaledWidth = context->getScaledWidth();
         float scaledHeight = context->getScaledHeight();
         auto paint = context->getPaint();
+        auto opacity = context->getOpacity();
         auto platformContext = getContext();
         auto requestRedraw = context->getRequestRedraw();
 
@@ -43,7 +44,7 @@ protected:
         }
 
         // Run rendering on the javascript thread
-        getContext()->runOnJavascriptThread([this, platformContext,
+        getContext()->runOnJavascriptThread([this, platformContext, opacity,
                                              requestRedraw, scaledWidth,
                                              scaledHeight]() {
           // Get the runtime
@@ -64,6 +65,7 @@ protected:
               *runtime, "paint",
               jsi::Object::createFromHostObject(*runtime, this->_jsiPaint));
 
+          jsiCtx.setProperty(*runtime, "opacity", opacity);
           jsiCtx.setProperty(
               *runtime, "canvas",
               jsi::Object::createFromHostObject(*runtime, jsiCanvas));
