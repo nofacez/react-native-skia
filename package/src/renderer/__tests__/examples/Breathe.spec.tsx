@@ -47,7 +47,7 @@ interface BreatheProps {
   progress: SkiaValue<number>;
 }
 
-export const Breathe = ({ progress }: BreatheProps) => {
+const Breathe = ({ progress }: BreatheProps) => {
   const { useComputedValue, vec } = importSkia();
 
   const center = vec(width / 2, height / 2 - 64);

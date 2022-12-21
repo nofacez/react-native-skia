@@ -2,7 +2,7 @@ import { Skia } from "../Skia";
 import type { SkCanvas, SkRect } from "../types";
 
 /**
- * Memoizes and returns an SkPicture that can be drawn to another canvas.
+ * Returns an SkPicture that can be drawn to another canvas.
  * @param rect Picture bounds
  * @param cb Callback for drawing to the canvas
  * @returns SkPicture

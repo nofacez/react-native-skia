@@ -62,7 +62,7 @@ interface SkiaNeonProps {
   progress: SkiaValue<number>;
 }
 
-export const SkiaNeon = ({ progress }: SkiaNeonProps) => {
+const SkiaNeon = ({ progress }: SkiaNeonProps) => {
   const { rect, processTransform2d, Skia, topLeft, topRight, fitbox } =
     importSkia();
   const paths = useMemo(
